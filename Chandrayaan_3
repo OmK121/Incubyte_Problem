@@ -1,0 +1,114 @@
+// Online C++ compiler to run C++ program online
+#include <bits/stdc++.h>
+using namespace std;
+
+class Chandrayaan3{
+   public:
+   Chandrayaan3(int X,int Y,int Z,char Dir){
+       x=X;
+       y=Y;
+       z=Z;
+       dir=Dir;
+   }
+
+   void execute(const vector <char> &process){
+    for (char cmd: process){
+        if(cmd=='f' || cmd=='b'){
+            fwd_bkd(cmd);
+        }
+        else if(cmd=='l' || cmd=='r'){
+            rgt_lft(cmd);
+        }
+        else if(cmd=='u' || cmd=='d'){
+            up_down(cmd);
+        }
+    }
+   }
+
+   void showFinalPosAndDir()  const {
+        cout << "Final Position: (" << x << ", " << y << ", " << z << ")\n";
+        cout << "Final Direction: " << dir << "\n";
+    }
+
+    private:
+    int x, y, z;
+    char dir;
+
+    void fwd_bkd(char cmd){
+        int step;
+        if (cmd=='f'){
+            step = 1;
+        }
+        else {
+            step = -1;
+        }
+
+         if (dir == 'N') {
+            y += step;
+        } else if (dir == 'S') {
+            y -= step;
+        } else if (dir == 'E') {
+            x += step;
+        } else if (dir == 'W') {
+            x -= step;
+        } else if (dir == 'U') {
+            z += step;
+        } else if (dir == 'D') {
+            z -= step;
+        }
+    }
+
+    void rgt_lft(char cmd){
+            if (cmd == 'l') {
+            if (dir == 'N') {
+                dir = 'W';
+            } else if (dir == 'S') {
+                dir = 'E';
+            } else if (dir == 'E') {
+                dir = 'N';
+            } else if (dir == 'W') {
+                dir = 'S';
+            }
+        } else if (cmd == 'r') {
+            if (dir== 'N') {
+                dir = 'E';
+            } else if (dir == 'S') {
+                dir = 'W';
+            } else if (dir == 'E') {
+                dir = 'S';
+            } else if (dir == 'W') {
+                dir = 'N';
+            }
+        }
+    }
+    
+
+    void up_down(char cmd) {
+        if (cmd == 'u') {
+            if (dir == 'N' || dir == 'S') {
+                dir = 'U';
+            } else if (dir == 'U') {
+                dir = 'S';
+            } else if (dir== 'D') {
+                dir = 'N';
+            }
+        } else if (cmd == 'd') {
+            if (dir == 'N' || dir == 'S') {
+                dir = 'D';
+            } else if (dir == 'U') {
+                dir = 'N';
+            } else if (dir == 'D') {
+                dir = 'S';
+            }
+        }
+    }
+};
+
+int main() {
+    Chandrayaan3 Chand(0, 0, 0, 'N');
+    vector<char> commands = {'f', 'r', 'u', 'b', 'l'};
+    Chand.execute(commands);
+    Chand.showFinalPosAndDir();
+
+    return 0;
+}
